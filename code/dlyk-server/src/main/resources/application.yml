@@ -1,0 +1,53 @@
+server:
+  port: 8089
+  servlet:
+    context-path: /
+
+
+#配置mysql的连接信息（配置数据源）
+spring:
+  datasource:
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/dlyk?useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+    hikari:
+      maximum-pool-size: 30
+      minimum-idle: 30
+      connection-timeout: 5000
+      idle-timeout: 0
+      max-lifetime: 18000000
+
+  #设置jackson返回json数据时，时区和格式
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+
+
+  #配置redis的连接信息
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+
+  #指定mapper.xml文件在什么位置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  #sql语句日志打印
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#security框架日志打印
+#ogging:
+# level:
+#   org:
+#     springframework:
+#       security:
+#         :TRACE
+
+#定时任务的时间调度,cron表达式只支持6个字段
+project:
+  task:
+    cron: '* */5 * * * *'
+    dalay: 180000
